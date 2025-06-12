@@ -8,12 +8,17 @@ Deps.now(function()
   vim.cmd('colorscheme mini-gruvbox')
 
   -- See :help MiniNotify.config
-  require('mini.notify').setup({
+  local notify = require('mini.notify')
+  notify.setup({
     lsp_progress = {
       enable = false,
     },
   })
 
-  vim.notify = require('mini.notify').make_notify()
+  vim.notify = notify.make_notify()
+
+  vim.api.nvim_create_user_command('Notifications', function()
+    notify.show_history()
+  end, {})
 end)
 
