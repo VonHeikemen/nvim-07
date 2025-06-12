@@ -1,9 +1,11 @@
+---@diagnostic disable: deprecated
+
+local border_style = 'rounded'
 local levels = vim.diagnostic.severity
+
 local opts = {
   virtual_text = true,
-  float = {
-    border = 'rounded',
-  },
+  float = {},
   signs = {
     text = {
       [levels.ERROR] = '✘',
@@ -24,7 +26,11 @@ local function sign_define(name, text)
 end
 
 -- Ensure compatiblity with older Neovim versions
-if vim.fn.has('nvim-0.11') == 0 then
+if vim.fn.has('nvim-0.11') == 1 then
+  vim.o.winborder = border_style
+else
+  opts.float.border = border_style
+
   sign_define('Error', opts.signs.text[levels.ERROR])
   sign_define('Warn', opts.signs.text[levels.WARN])
   sign_define('Hint', opts.signs.text[levels.HINT])
@@ -34,8 +40,6 @@ if vim.fn.has('nvim-0.11') == 0 then
   vim.keymap.set('n', '<C-w><C-d>', '<cmd>lua vim.diagnostic.open_float()<cr>')
   vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
   vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-
-  local border_style = 'rounded'
 
   vim.schedule(function()
     vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
