@@ -29,6 +29,23 @@ if not uv.fs_stat(mini_path) then
 
   vim.cmd('packadd mini.nvim | helptags ALL')
   vim.cmd('echo "Installed `mini.nvim`" | redraw')
+
+  local on_done = function()
+    if vim.g.load_plugins ~= 1 then
+      return
+    end
+
+    local session = require('mini.deps').get_session()
+    local msg = '%s plugins have been installed'
+
+    vim.notify(string.format(msg, #session))
+  end
+
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'PluginsReady',
+    once = true,
+    callback = on_done,
+  })
 end
 
 local ok, Deps = pcall(require, 'mini.deps')
