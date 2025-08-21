@@ -16,10 +16,13 @@ Deps.add({
 
 Deps.add('hrsh7th/cmp-buffer')
 Deps.add('hrsh7th/cmp-path')
-Deps.add('hrsh7th/cmp-nvim-lsp')
 Deps.add('hrsh7th/cmp-vsnip')
 Deps.add('rafamadriz/friendly-snippets')
 
+Deps.add({
+  source = 'hrsh7th/cmp-nvim-lsp',
+  commit = 'a8912b88ce488f411177fc8aed358b04dc246d7b'
+})
 Deps.add({
   source = 'hrsh7th/vim-vsnip',
   checkout = 'b7445b3c43acb08c0b74350d046e0088ece88033',
