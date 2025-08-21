@@ -21,7 +21,7 @@ Deps.add('rafamadriz/friendly-snippets')
 
 Deps.add({
   source = 'hrsh7th/cmp-nvim-lsp',
-  commit = 'a8912b88ce488f411177fc8aed358b04dc246d7b'
+  checkout = 'a8912b88ce488f411177fc8aed358b04dc246d7b',
 })
 Deps.add({
   source = 'hrsh7th/vim-vsnip',
